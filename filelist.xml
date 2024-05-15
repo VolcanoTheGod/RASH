@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<contentpackage name="RASH" modversion="0.0.1" corepackage="False">
+	
+	<!-- Content -->
+	<Afflictions file="%ModDir%/Xml/afflictions.xml" />
+	<Item file="%ModDir%/Xml/items.xml" />
+
+	<!-- Localization -->
+	<Text file="%ModDir%/Localization/English/english.xml" />
+	<!-- <Text file="%ModDir%/Localization/English/english_guide.xml" />-->
+	
+	<!-- Lua -->
+	<None file="%ModDir%/Lua/Autorun/main.lua" />
+
+	<!-- Special thanks to:
+	Hnappinn - Advanced Medicine original author. Long live the kidney!
+	Zipliks, csqrb and ZorenZal - co-developers of AM. Spepsis, mah bois!
+    Mannatu - Neurotrauma, a more complex, content-rich, fast and yet spaghettified medical mod based off Advanced Medicine. Praise section 13!
+	Evil Factory - an madman behind Lua for Barotrauma mod, which made Neurotrauma and this mod possible
+	Heelga - some tweaks I stole from his NT ripoff without any regrets -->
+
+</contentpackage>
