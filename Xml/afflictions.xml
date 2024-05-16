@@ -1,3 +1,551 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <Afflictions>
+
+    <!--                    Color scheme:
+    255 255 255 - infection, necrosis and other post-injury traumas
+    255 255 0 - direct traumas, including fractures
+    255 200 0 - symptoms and pain
+    255 0 255 - special afflictions
+    255 0 0 - blood/heart-related afflictions
+    0 100 200 - breathing/lung-related afflictions
+    Alpha 150 -> 255 if it's important for the patient outside of hospital AND it can have different
+    strength, like pain or stun -->
+
+
+    <!-- /// /// /// /// /// /// /// /// ///   PLEASE READ   \\\ \\\ \\\ \\\ \\\ \\\ \\\ \\\ \\\ -->
+    <!-- Don't add any logic to any of these afflictions, Lua is a much easier, and faster both
+    performance-wise and code-wise way to do this! -->
+
+
+    <!-- /// /// /// /// /// /// /// /// ///     OVERRIDE     \\\ \\\ \\\ \\\ \\\ \\\ \\\ \\\ \\\ -->
+    <!-- These afflictions will override (replace) afflictions from vanilla game. This means that
+    the original affliction will be COMPLETELY disabled and the new affliction will take its place. No
+    attributes and/or tags will be copied from vanilla once it's overriden, make sure to copy those but
+    any logic (that will be implemented with Lua). Also, overriding an effect doesn't override any
+    of its references in the game, meaning that its sources or treatments remain the same unless
+    they're overriden as well -->
+
+    <!--         OVERRIDE/HEAD         -->
+
+    <!-- max strength is 10 (same as vanilla) -->
+    <Override>
+        <Affliction name="Concussion" identifier="concussion" description=""
+            limbspecific="false"
+            indicatorlimb="Head" showiconthreshold="0" showinhealthscannerthreshold="0"
+            maxstrength="10" targets="human" type="gaze" isbuff="false"
+            healableinmedicalclinic="false"
+            iconcolors="255,255,0,150;255,255,0,255">
+            <icon texture="%ModDir%/Images/afflictions_core.png" sheetindex="0,5"
+                sheetelementsize="128,128" origin="0,0" />
+        </Affliction>
+    </Override>
+
+    <Override>
+        <Affliction name="Unconscious" identifier="stun" description=""
+            limbspecific="false"
+            indicatorlimb="Head" showiconthreshold="0" showinhealthscannerthreshold="0"
+            maxstrength="100" targets="human" type="stun" isbuff="false"
+            healableinmedicalclinic="false"
+            iconcolors="255,255,0,150;255,255,0,255">
+            <icon texture="%ModDir%/Images/afflictions_core.png" sheetindex="1,5"
+                sheetelementsize="128,128" origin="0,0" />
+        </Affliction>
+    </Override>
+
+    <Override>
+        <Affliction name="Psychosis" identifier="psychosis" description=""
+            limbspecific="false"
+            indicatorlimb="Head" showiconthreshold="1000" showicontoothersthreshold="50"
+            showinhealthscannerthreshold="0" activationthreshold="0"
+            maxstrength="100" targets="human" type="psychosis" isbuff="false"
+            healableinmedicalclinic="false"
+            iconcolors="255,255,0,150;255,255,0,255" affectmachines="false"
+            achievementonremoved="healpsychosis" healcostmultiplier="3.5">
+            <icon texture="%ModDir%/Images/afflictions_core.png" sheetindex="2,5"
+                sheetelementsize="128,128" origin="0,0" />
+            <Description
+                textidentifier="afflictiondescription.psychosis.low"
+                minstrength="0"
+                maxstrength="50" />
+            <Description
+                textidentifier="afflictiondescription.psychosis"
+                minstrength="50"
+                maxstrength="100" />
+            <PeriodicEffect mininterval="30" maxinterval="120">
+                <StatusEffect target="Character" onlyoutside="true">
+                    <Conditional IsLocalPlayer="True" />
+                    <Sound file="Content/Characters/Spineling/SPINELING_idle2.ogg"
+                        selectionmode="Random" />
+                    <Sound file="Content/Characters/Spineling/SPINELING_idle4.ogg" />
+                    <Sound file="Content/Characters/Tigerthresher/TIGERTRESHER_idle1.ogg" />
+                    <Sound file="Content/Characters/Tigerthresher/TIGERTRESHER_idle2.ogg" />
+                    <Sound file="Content/Characters/Tigerthresher/TIGERTRESHER_attack1.ogg" />
+                    <Sound file="Content/Characters/Moloch/MOLOCH_attack1.ogg" />
+                    <Sound file="Content/Characters/Moloch/MOLOCH_attack2.ogg" />
+                    <Sound file="Content/Characters/Husk/HUSK_idle1.ogg" />
+                    <Sound file="Content/Characters/Husk/HUSK_idle4.ogg" />
+                    <Sound file="Content/Characters/Hammerheadmatriarch/MHAMMERHEAD_idle3.ogg" />
+                    <Sound file="Content/Characters/Hammerhead/HAMMERHEAD_idle4.ogg" />
+                    <Sound file="Content/Characters/Hammerhead/HAMMERHEAD_attack2.ogg" />
+                    <Sound file="Content/Characters/Hammerhead/HAMMERHEAD_attack3.ogg" />
+                    <Sound file="Content/Characters/Crawlerhusk/HUSKEDCRAWLER_idle1.ogg" />
+                    <Sound file="Content/Characters/Crawlerhusk/HUSKEDCRAWLER_idle3.ogg" />
+                    <Sound file="Content/Characters/Crawlerhusk/HUSKEDCRAWLER_attack2.ogg" />
+                </StatusEffect>
+                <StatusEffect target="Character" onlyinside="true">
+                    <Conditional IsLocalPlayer="True" />
+                    <Sound file="Content/Items/Weapons/honk.ogg" selectionmode="Random" />
+                    <Sound file="Content/Items/Weapons/ShotgunShot1.ogg" />
+                    <Sound file="Content/Items/Weapons/ShotgunShot2.ogg" />
+                    <Sound file="Content/Characters/Moloch/MOLOCH_attack1.ogg" />
+                    <Sound file="Content/Characters/Moloch/MOLOCH_attack2.ogg" />
+                    <Sound file="Content/Characters/Mudraptor/MUDRAPTOR_attack1.ogg" />
+                    <Sound file="Content/Characters/Mudraptor/MUDRAPTOR_attack2.ogg" />
+                    <Sound file="Content/Characters/Mudraptor/MUDRAPTOR_idle4.ogg" />
+                    <Sound file="Content/Characters/Husk/HUSK_idle1.ogg" />
+                    <Sound file="Content/Characters/Husk/HUSK_idle4.ogg" />
+                    <Sound file="Content/Characters/Husk/HUSK_attack4.ogg" />
+                    <Sound file="Content/Characters/Crawler/CRAWLER_idle3.ogg" />
+                </StatusEffect>
+            </PeriodicEffect>
+            <PeriodicEffect mininterval="100" maxinterval="200">
+                <StatusEffect target="Character" duration="30" onlyinside="true">
+                    <Conditional IsLocalPlayer="True" />
+                    <Sound file="Content/Items/WarningSiren.ogg" />
+                </StatusEffect>
+            </PeriodicEffect>
+            <icon texture="%ModDir%/Images/afflictions_core.png" sheetindex="0,3"
+                sheetelementsize="128,128" origin="0,5" />
+        </Affliction>
+    </Override>
+
+    <Affliction
+        identifier="drunk"
+        description="The smell of alcohol rises from them like a vapor, their speech slurs a little, and their eyes fail to focus."
+        type="debuff"
+        causeofdeathdescription="Alcohol poisoning"
+        selfcauseofdeathdescription="You have died of alcohol poisoning."
+        limbspecific="false"
+        indicatorlimb="Head"
+        activationthreshold="20"
+        treatmentthreshold="1000"
+        maxstrength="100"
+        affectmachines="false">
+    <Description
+        textidentifier="afflictiondescription.drunk.self"
+        target="Self"
+        minstrength="0"
+        maxstrength="80" />
+    <Description
+        textidentifier="afflictiondescription.drunk.lethal.self"
+        target="Self"
+        minstrength="80"
+        maxstrength="100" />
+    <Description
+        textidentifier="afflictiondescription.drunk.low"
+        target="OtherCharacter"
+        minstrength="0"
+        maxstrength="40" />
+    <Description
+        textidentifier="afflictiondescription.drunk"
+        target="OtherCharacter"
+        minstrength="40"
+        maxstrength="80" />
+    <Description
+        textidentifier="afflictiondescription.drunk.lethal"
+        target="OtherCharacter"
+        minstrength="80"
+        maxstrength="100" />
+    <Effect minstrength="0" maxstrength="20"/>
+    <Effect minstrength="20" maxstrength="40"
+        minscreendistort="0"
+        maxscreendistort="0.1"
+        minfacetint="255,0,0,0"
+        maxfacetint="255,0,0,50"
+        minspeedmultiplier="1.0"
+        maxspeedmultiplier="0.8">
+    </Effect>
+    <Effect minstrength="40" maxstrength="80"
+        minscreendistort="0.1"
+        maxscreendistort="1.0"
+        minscreenblur="0.1"
+        maxscreenblur="1.0"
+        minradialdistort="0.0"
+        maxradialdistort="2.0"
+        dialogflag="DrunkMedium"
+        minfacetint="255,0,0,50"
+        maxfacetint="255,0,0,100"
+        minspeedmultiplier="0.8"
+        maxspeedmultiplier="0.7">
+        <StatusEffect target="Character">
+            <TriggerAnimation Type="Walk" filename="DrunkenWalk" priority="4"
+                ExpectedSpecies="Human" />
+            <TriggerAnimation Type="Run" filename="DrunkenRun" priority="4" ExpectedSpecies="Human" />
+        </StatusEffect>
+    </Effect>
+    </Affliction>
+
+    <!-- /// /// /// /// /// /// /// /// /// CORE AFFLICTIONS \\\ \\\ \\\ \\\ \\\ \\\ \\\ \\\ \\\ -->
+
+    <!--         CORE/HEAD         -->
+
+    <!-- Easter egg affliction. 1-99 = funke, 100 = death. Cannot be contracted without cheats -->
+    <Affliction name="Acute Hnapposis" identifier="weirdthing1233" description=""
+        limbspecific="false"
+        indicatorlimb="Head" showiconthreshold="0" showinhealthscannerthreshold="0"
+        maxstrength="100" targets="human" type="gaze" isbuff="false" healableinmedicalclinic="false"
+        iconcolors="255,0,255,255;255,0,255,255">
+        <icon texture="%ModDir%/Images/afflictions_core.png" sheetindex="0,0"
+            sheetelementsize="128,128" origin="0,0" />
+        <Effect minstrength="0" maxstrength="100"
+            minscreendistort="0"
+            maxscreendistort="50"
+            minscreenblur="0"
+            maxscreenblur="50"
+            minchromaticaberration="0"
+            maxchromaticaberration="4">
+        </Effect>
+    </Affliction>
+
+    <!-- Brain damage. Main killing affliction. 100 = death -->
+    <Affliction name="Neurotrauma" identifier="neurotrauma" description="" limbspecific="false"
+        indicatorlimb="Head" showiconthreshold="99" showinhealthscannerthreshold="20"
+        maxstrength="100" targets="human" type="gaze" isbuff="false" healableinmedicalclinic="false"
+        iconcolors="255,0,255,255;255,0,255,255">
+        <icon texture="%ModDir%/Images/afflictions_core.png" sheetindex="1,0"
+            sheetelementsize="128,128" origin="0,0" />
+        <Effect minstrength="0" maxstrength="51"
+            minscreendistort="0.02"
+            maxscreendistort="1.0"
+            minscreenblur="0.1"
+            maxscreenblur="5.0"
+            minspeedmultiplier="1.0"
+            maxspeedmdultiplier="0.5" />
+        <Effect minstrength="50" maxstrength="100"
+            minscreendistort="1"
+            maxscreendistort="4.0"
+            minscreenblur="5.0"
+            maxscreenblur="20.0"
+            minspeedmultiplier="0.5"
+            maxspeedmdultiplier="0.05">
+            <StatusEffect target="Character">
+                <TriggerAnimation Type="Walk" filename="DrunkenWalk" priority="6"
+                    ExpectedSpecies="Human" />
+                <TriggerAnimation Type="Run" filename="DrunkenRun" priority="6"
+                    ExpectedSpecies="Human" />
+            </StatusEffect>
+        </Effect>
+    </Affliction>
+
+    <!-- Brain doesn't receive enough oxygen. Main cause of neurotrauma -->
+    <Affliction name="Cerebral Hypoxia" identifier="cerebralhypoxia" description=""
+        limbspecific="false"
+        indicatorlimb="Head" showiconthreshold="1000" showinhealthscannerthreshold="0"
+        maxstrength="100" targets="human" type="gaze" isbuff="false" healableinmedicalclinic="false"
+        iconcolors="0,100,200,255;0,100,200,255">
+        <icon texture="%ModDir%/Images/afflictions_core.png" sheetindex="0,4"
+            sheetelementsize="128,128" origin="0,0" />
+    </Affliction>
+
+    <Affliction name="Skull Fracture" identifier="skullfracture" description=""
+        limbspecific="true"
+        indicatorlimb="Head" showiconthreshold="1000" showicontoothersthreshold="0"
+        showinhealthscannerthreshold="0"
+        maxstrength="1" targets="human" type="gaze" isbuff="false" healableinmedicalclinic="false"
+        iconcolors="255,255,0,255;255,255,0,255">
+        <icon texture="%ModDir%/Images/afflictions_core.png" sheetindex="7,6"
+            sheetelementsize="128,128" origin="0,0" />
+    </Affliction>
+
+    <!--         CORE/TORSO         -->
+
+    <!-- CORE/TORSO/BLOOD -->
+
+    <Affliction name="Cardiac Tamponade" identifier="cardiactamponade" description=""
+        limbspecific="false"
+        indicatorlimb="Torso" showiconthreshold="100" showinhealthscannerthreshold="20"
+        maxstrength="1" targets="human" type="gaze" isbuff="false" healableinmedicalclinic="false"
+        iconcolors="255,0,0,255;255,0,0,255">
+        <icon texture="%ModDir%/Images/afflictions_core.png" sheetindex="0,3"
+            sheetelementsize="128,128" origin="0,0" />
+    </Affliction>
+
+    <Affliction name="Hemotransfusion Shock" identifier="hemotransfusionshock" description=""
+        limbspecific="false"
+        indicatorlimb="Torso" showiconthreshold="100" showinhealthscannerthreshold="20"
+        maxstrength="1" targets="human" type="gaze" isbuff="false" healableinmedicalclinic="false"
+        iconcolors="255,0,0,255;255,0,0,255">
+        <icon texture="%ModDir%/Images/afflictions_core.png" sheetindex="1,3"
+            sheetelementsize="128,128" origin="0,0" />
+    </Affliction>
+
+    <Affliction name="Internal Bleeding" identifier="internalbleeding" description=""
+        limbspecific="false"
+        indicatorlimb="Torso" showiconthreshold="0" showinhealthscannerthreshold="0"
+        maxstrength="1" targets="human" type="gaze" isbuff="false" healableinmedicalclinic="false"
+        iconcolors="255,0,0,255;255,0,0,255">
+        <icon texture="%ModDir%/Images/afflictions_core.png" sheetindex="2,3"
+            sheetelementsize="128,128" origin="0,0" />
+    </Affliction>
+
+    <Affliction name="Aortic Rupture" identifier="aorticrupture" description=""
+        limbspecific="false"
+        indicatorlimb="Torso" showiconthreshold="0" showinhealthscannerthreshold="0"
+        maxstrength="1" targets="human" type="gaze" isbuff="false" healableinmedicalclinic="false"
+        iconcolors="255,0,0,255;255,0,0,255">
+        <icon texture="%ModDir%/Images/afflictions_core.png" sheetindex="3,3"
+            sheetelementsize="128,128" origin="0,0" />
+    </Affliction>
+
+    <Affliction name="Ventricular Fibrillation" identifier="Ventricular Fibrillation" description=""
+        limbspecific="false"
+        indicatorlimb="Torso" showiconthreshold="0" showinhealthscannerthreshold="0"
+        maxstrength="1" targets="human" type="gaze" isbuff="false" healableinmedicalclinic="false"
+        iconcolors="255,0,0,255;255,0,0,255">
+        <icon texture="%ModDir%/Images/afflictions_core.png" sheetindex="4,3"
+            sheetelementsize="128,128" origin="0,0" />
+    </Affliction>
+
+    <Affliction name="Asystole" identifier="Asystole" description=""
+        limbspecific="false"
+        indicatorlimb="Torso" showiconthreshold="0" showinhealthscannerthreshold="0"
+        maxstrength="1" targets="human" type="gaze" isbuff="false" healableinmedicalclinic="false"
+        iconcolors="255,0,0,255;255,0,0,255">
+        <icon texture="%ModDir%/Images/afflictions_core.png" sheetindex="5,3"
+            sheetelementsize="128,128" origin="0,0" />
+    </Affliction>
+
+
+    <!-- CORE/TORSO/BREATHING -->
+
+    <Affliction name="Drowning" identifier="drowning" description=""
+        limbspecific="false"
+        indicatorlimb="Torso" showiconthreshold="0" showinhealthscannerthreshold="0"
+        maxstrength="100" targets="human" type="gaze" isbuff="false" healableinmedicalclinic="false"
+        iconcolors="0,100,200,150;0,100,200,255">
+        <icon texture="%ModDir%/Images/afflictions_core.png" sheetindex="1,4"
+            sheetelementsize="128,128" origin="0,0" />
+    </Affliction>
+
+    <Affliction name="Respiratory Arrest" identifier="respiratoryarrest" description=""
+        limbspecific="false"
+        indicatorlimb="Torso" showiconthreshold="0" showinhealthscannerthreshold="0"
+        maxstrength="1" targets="human" type="gaze" isbuff="false" healableinmedicalclinic="false"
+        iconcolors="0,100,200,255;0,100,200,255">
+        <icon texture="%ModDir%/Images/afflictions_core.png" sheetindex="2,4"
+            sheetelementsize="128,128" origin="0,0" />
+    </Affliction>
+
+    <Affliction name="Pneumothorax" identifier="pneumothorax" description=""
+        limbspecific="false"
+        indicatorlimb="Torso" showiconthreshold="0" showinhealthscannerthreshold="0"
+        maxstrength="1" targets="human" type="gaze" isbuff="false" healableinmedicalclinic="false"
+        iconcolors="0,100,200,255;0,100,200,255">
+        <icon texture="%ModDir%/Images/afflictions_core.png" sheetindex="3,4"
+            sheetelementsize="128,128" origin="0,0" />
+    </Affliction>
+
+    <!-- CORE/TORSO/OTHER -->
+
+    <Affliction name="Rib Fracture" identifier="ribfracture" description=""
+        limbspecific="false" showiconthreshold="0" showinhealthscannerthreshold="0"
+        maxstrength="24" targets="human" type="gaze" isbuff="false" healableinmedicalclinic="false"
+        iconcolors="255,255,0,255;255,255,0,255">
+        <icon texture="%ModDir%/Images/afflictions_core.png" sheetindex="4,5"
+            sheetelementsize="128,128" origin="0,0" />
+    </Affliction>
+
+    <!--         CORE/EXTREMITIES         -->
+
+    <Affliction name="Dislocation" identifier="dislocation" description=""
+        limbspecific="true" showiconthreshold="0" showinhealthscannerthreshold="0"
+        maxstrength="1" targets="human" type="gaze" isbuff="false" healableinmedicalclinic="false"
+        iconcolors="255,255,0,255;255,255,0,255">
+        <icon texture="%ModDir%/Images/afflictions_core.png" sheetindex="4,6"
+            sheetelementsize="128,128" origin="0,0" />
+    </Affliction>
+
+    <!--         CORE/ANY         -->
+
+    <Affliction name="Necrosis" identifier="necrosis" description=""
+        limbspecific="true" showiconthreshold="0" showinhealthscannerthreshold="0"
+        maxstrength="100" targets="human" type="gaze" isbuff="false" healableinmedicalclinic="false"
+        iconcolors="200,200,200,150;200,200,200,255">
+        <icon texture="%ModDir%/Images/afflictions_core.png" sheetindex="3,5"
+            sheetelementsize="128,128" origin="0,0" />
+    </Affliction>
+
+    <Affliction name="Sepsis" identifier="Sepsis" description=""
+        limbspecific="true" showiconthreshold="0" showinhealthscannerthreshold="0"
+        maxstrength="100" targets="human" type="gaze" isbuff="false" healableinmedicalclinic="false"
+        iconcolors="200,200,200,150;200,200,200,255">
+        <icon texture="%ModDir%/Images/afflictions_core.png" sheetindex="4,5"
+            sheetelementsize="128,128" origin="0,0" />
+    </Affliction>
+
+    <Affliction name="Bone Marrow Damage" identifier="bonemarrowdamage" description=""
+        limbspecific="true" showiconthreshold="0" showinhealthscannerthreshold="0"
+        maxstrength="100" targets="human" type="gaze" isbuff="false" healableinmedicalclinic="false"
+        iconcolors="200,200,200,255;200,200,200,255">
+        <icon texture="%ModDir%/Images/afflictions_core.png" sheetindex="5,5"
+            sheetelementsize="128,128" origin="0,0" />
+    </Affliction>
+
+    <Affliction name="Foreign Body" identifier="foreignbody" description=""
+        limbspecific="true" showiconthreshold="0" showinhealthscannerthreshold="0"
+        maxstrength="100" targets="human" type="gaze" isbuff="false" healableinmedicalclinic="false"
+        iconcolors="255,255,0,255;255,255,0,255">
+        <icon texture="%ModDir%/Images/afflictions_core.png" sheetindex="4,5"
+            sheetelementsize="128,128" origin="0,0" />
+    </Affliction>
+
+    <Affliction name="Bone Fracture" identifier="bonefracture" description=""
+        limbspecific="true" showiconthreshold="0" showinhealthscannerthreshold="0"
+        maxstrength="1" targets="human" type="gaze" isbuff="false" healableinmedicalclinic="false"
+        iconcolors="255,255,0,255;255,255,0,255">
+        <icon texture="%ModDir%/Images/afflictions_core.png" sheetindex="4,5"
+            sheetelementsize="128,128" origin="0,0" />
+    </Affliction>
+
+    <!-- Maxstrength is 200!!! -->
+    <Affliction name="Pain" identifier="pain" description=""
+        limbspecific="true" showiconthreshold="0" showinhealthscannerthreshold="0"
+        maxstrength="200" targets="human" type="gaze" isbuff="false" healableinmedicalclinic="false"
+        iconcolors="255,200,0,150;255,200,0,255">
+        <icon texture="%ModDir%/Images/afflictions_core.png" sheetindex="4,5"
+            sheetelementsize="128,128" origin="0,0" />
+    </Affliction>
+
+
+    <!-- /// /// /// /// /// /// /// /// ///     SYMPTOMS     \\\ \\\ \\\ \\\ \\\ \\\ \\\ \\\ \\\ -->
+    <!-- These afflictions don't have any lua logic and never harm you in any major way, but can
+    have some xml effects like minor slowness or blurriness. It's highly recommended to minimize
+    them, instead transferring the effects to other afflictions. For example, don't make a separate
+    nausea, just include vomitting and minor blur to whatever would've cause it. 
+    Set maxstrength = 1. Set icon threshhold to 100 if you don't want the affliction to be shown -->
+
+    <!--         SYMPTOMS/HEAD         -->
+
+    <!-- SYMPTOMS/HEAD/HEAD -->
+
+    <Affliction name="Dizziness" identifier="dizziness" description="" limbspecific="false"
+        indicatorlimb="Head" showiconthreshold="0" showinhealthscannerthreshold="0"
+        maxstrength="1" targets="human" type="gaze" isbuff="false" healableinmedicalclinic="false"
+        iconcolors="255,200,0,255;255,200,0,255">
+        <icon texture="%ModDir%/Images/afflictions_core.png" sheetindex="2,1"
+            sheetelementsize="128,128" origin="0,0" />
+    </Affliction>
+
+    <Affliction name="Headache" identifier="headache" description="" limbspecific="false"
+        indicatorlimb="Head" showiconthreshold="0" showinhealthscannerthreshold="0"
+        maxstrength="1" targets="human" type="gaze" isbuff="false" healableinmedicalclinic="false"
+        iconcolors="255,200,0,255;255,200,0,255">
+        <icon texture="%ModDir%/Images/afflictions_core.png" sheetindex="3,1"
+            sheetelementsize="128,128" origin="0,0" />
+    </Affliction>
+
+    <Affliction name="Lightheadness" identifier="lightheadness" description="" limbspecific="false"
+        indicatorlimb="Head" showiconthreshold="0" showinhealthscannerthreshold="0"
+        maxstrength="1" targets="human" type="gaze" isbuff="false" healableinmedicalclinic="false"
+        iconcolors="255,200,0,255;255,200,0,255">
+        <icon texture="%ModDir%/Images/afflictions_core.png" sheetindex="2,2"
+            sheetelementsize="128,128" origin="0,0" />
+    </Affliction>
+
+    <!-- SYMPTOMS/HEAD/EYES -->
+
+    <Affliction name="Dilated Pupils" identifier="dilatedpupils" description="" limbspecific="false"
+        indicatorlimb="Head" showiconthreshold="0" showinhealthscannerthreshold="0"
+        maxstrength="1" targets="human" type="gaze" isbuff="false" healableinmedicalclinic="false"
+        iconcolors="255,200,0,255;255,200,0,255">
+        <icon texture="%ModDir%/Images/afflictions_core.png" sheetindex="0,1"
+            sheetelementsize="128,128" origin="0,0" />
+    </Affliction>
+
+    <Affliction name="Constricted Pupils" identifier="constrictedpupils" description=""
+        limbspecific="false"
+        indicatorlimb="Head" showiconthreshold="0" showinhealthscannerthreshold="0"
+        maxstrength="1" targets="human" type="gaze" isbuff="false" healableinmedicalclinic="false"
+        iconcolors="255,200,0,255;255,200,0,255">
+        <icon texture="%ModDir%/Images/afflictions_core.png" sheetindex="1,1"
+            sheetelementsize="128,128" origin="0,0" />
+    </Affliction>
+
+
+    <!-- SYMPTOMS/HEAD/MOUTH -->
+
+    <Affliction name="Blood Vomitting" identifier="bloodvomitting" description=""
+        limbspecific="false"
+        indicatorlimb="Head" showiconthreshold="0" showinhealthscannerthreshold="0"
+        maxstrength="1" targets="human" type="gaze" isbuff="false" healableinmedicalclinic="false"
+        iconcolors="255,200,0,255;255,200,0,255">
+        <icon texture="%ModDir%/Images/afflictions_core.png" sheetindex="4,1"
+            sheetelementsize="128,128" origin="0,0" />
+    </Affliction>
+
+    <Affliction name="Cough" identifier="cough" description="" limbspecific="false"
+        indicatorlimb="Head" showiconthreshold="0" showinhealthscannerthreshold="0"
+        maxstrength="1" targets="human" type="gaze" isbuff="false" healableinmedicalclinic="false"
+        iconcolors="255,200,0,255;255,200,0,255">
+        <icon texture="%ModDir%/Images/afflictions_core.png" sheetindex="6,1"
+            sheetelementsize="128,128" origin="0,0" />
+    </Affliction>
+
+
+    <!-- SYMPTOMS/TORSO -->
+
+    <Affliction name="Shortness of Breath" identifier="shortnessofbreath" description=""
+        limbspecific="false"
+        indicatorlimb="Torso" showiconthreshold="0" showinhealthscannerthreshold="0"
+        maxstrength="1" targets="human" type="gaze" isbuff="false" healableinmedicalclinic="false"
+        iconcolors="255,200,0,255;255,200,0,255">
+        <icon texture="%ModDir%/Images/afflictions_core.png" sheetindex="5,1"
+            sheetelementsize="128,128" origin="0,0" />
+    </Affliction>
+
+    <Affliction name="Increased Heartrate" identifier="increasedheartrate" description=""
+        limbspecific="false"
+        indicatorlimb="Torso" showiconthreshold="0" showinhealthscannerthreshold="0"
+        maxstrength="1" targets="human" type="gaze" isbuff="false" healableinmedicalclinic="false"
+        iconcolors="255,200,0,255;255,200,0,255">
+        <icon texture="%ModDir%/Images/afflictions_core.png" sheetindex="7,1"
+            sheetelementsize="128,128" origin="0,0" />
+    </Affliction>
+
+    <Affliction name="Fever" identifier="fever" description=""
+        limbspecific="false"
+        indicatorlimb="Torso" showiconthreshold="0" showinhealthscannerthreshold="0"
+        maxstrength="1" targets="human" type="gaze" isbuff="false" healableinmedicalclinic="false"
+        iconcolors="255,200,0,255;255,200,0,255">
+        <icon texture="%ModDir%/Images/afflictions_core.png" sheetindex="0,2"
+            sheetelementsize="128,128" origin="0,0" />
+    </Affliction>
+
+    <Affliction name="Sweating" identifier="sweating" description=""
+        limbspecific="false"
+        indicatorlimb="Torso" showiconthreshold="0" showinhealthscannerthreshold="0"
+        maxstrength="1" targets="human" type="gaze" isbuff="false" healableinmedicalclinic="false"
+        iconcolors="255,200,0,255;255,200,0,255">
+        <icon texture="%ModDir%/Images/afflictions_core.png" sheetindex="1,2"
+            sheetelementsize="128,128" origin="0,0" />
+    </Affliction>
+
+    <Affliction name="Fatigue" identifier="fatigue" description=""
+        limbspecific="false"
+        indicatorlimb="Torso" showiconthreshold="0" showinhealthscannerthreshold="0"
+        maxstrength="1" targets="human" type="gaze" isbuff="false" healableinmedicalclinic="false"
+        iconcolors="255,200,0,255;255,200,0,255">
+        <icon texture="%ModDir%/Images/afflictions_core.png" sheetindex="3,2"
+            sheetelementsize="128,128" origin="0,0" />
+    </Affliction>
+
+    <Affliction name="Bruise" identifier="bruise" description=""
+        limbspecific="false"
+        indicatorlimb="Torso" showiconthreshold="0" showinhealthscannerthreshold="0"
+        maxstrength="1" targets="human" type="gaze" isbuff="false" healableinmedicalclinic="false"
+        iconcolors="255,200,0,255;255,200,0,255">
+        <icon texture="%ModDir%/Images/placeholder.png" origin="0,0" />
+    </Affliction>
+
 </Afflictions>
